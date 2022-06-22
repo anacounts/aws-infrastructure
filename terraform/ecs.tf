@@ -39,7 +39,7 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
   launch_configuration = aws_launch_configuration.ecs_launch_configuration.name
 
   health_check_grace_period = 300
-  health_check_type         = "EC2"
+  health_check_type         = "ELB"
 
   # populate the 'Name' field of the EC2 instance
   tag {
@@ -93,4 +93,18 @@ resource "aws_ecs_service" "service" {
   cluster         = aws_ecs_cluster.cluster.arn
   task_definition = aws_ecs_task_definition.task.arn
   desired_count   = 1
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.lb_target_group.arn
+    container_name   = "${var.app_name}-${var.app_env}"
+    container_port   = 4000
+  }
+
+  depends_on = [aws_lb.lb]
+}
+
+## Image repository
+
+resource "aws_ecr_repository" "repository" {
+  name = var.app_name
 }

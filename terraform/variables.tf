@@ -34,11 +34,6 @@ variable "acm_us_east_1_cert" {
   description = "A certificate manually created in region us-east-1"
 }
 
-## EC2
-variable "ec2_instance_ip" {
-  description = "The hosting EC2 instance IP. Run a first time to generate with ECS"
-}
-
 ## VPC
 variable "cidr" {
   default     = "10.0.0.0/16"
