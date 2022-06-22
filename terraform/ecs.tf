@@ -75,7 +75,7 @@ data "template_file" "task_definition_template" {
       },
       {
         name : "FRONT_HOST",
-        value : "https://${aws_cloudfront_distribution.front.domain_name}"
+        value : "https://${local.app_domain_name}/"
       }
     ])
   }

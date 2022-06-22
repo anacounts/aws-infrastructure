@@ -4,6 +4,9 @@
 variable "app_env" {
   description = "The name of the environment being spun up, i.e. QA, Prod, Dev etc."
 }
+variable "app_domain" {
+  description = "The domain hosting the application (e.g. \"anacounts.com\")"
+}
 variable "secret_key_base_arn" {
   description = "The Phoenix secret"
 }
@@ -25,6 +28,16 @@ variable "aws_region" {
 }
 
 # Components
+
+## ACM
+variable "acm_us_east_1_cert" {
+  description = "A certificate manually created in region us-east-1"
+}
+
+## EC2
+variable "ec2_instance_ip" {
+  description = "The hosting EC2 instance IP. Run a first time to generate with ECS"
+}
 
 ## VPC
 variable "cidr" {
