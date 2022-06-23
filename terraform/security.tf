@@ -20,6 +20,13 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+  ingress {
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 
   egress {
     from_port   = 0
@@ -36,11 +43,9 @@ resource "aws_security_group" "alb_sg" {
 
 ## Create a security group for the ec2 instances
 
-# TODO rename to "appserver"
-resource "aws_security_group" "app_sg" {
+resource "aws_security_group" "appserver_sg" {
   name        = local.app_sg_name
-  # TODO description = "Allow access for load balancer sg"
-  description = "HTTP access from everywhere"
+  description = "Allow access for load balancer sg"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
@@ -96,7 +101,7 @@ resource "aws_security_group" "rds_sg" {
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.app_sg.id]
+    security_groups = [aws_security_group.appserver_sg.id]
   }
   egress {
     from_port        = 0

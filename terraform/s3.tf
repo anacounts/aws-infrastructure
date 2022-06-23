@@ -3,7 +3,8 @@ locals {
 }
 
 resource "aws_s3_bucket" "front" {
-  bucket = local.front_bucket_name
+  bucket        = local.front_bucket_name
+  force_destroy = true
 
   tags = {
     Name        = local.front_bucket_name

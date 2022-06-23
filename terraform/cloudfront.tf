@@ -22,23 +22,12 @@ resource "aws_cloudfront_distribution" "front" {
   aliases             = [local.app_domain_name]
 
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = local.s3_origin_id
-
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    cached_methods         = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id       = local.s3_origin_id
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 86400
-    max_ttl                = 31536000
+    cache_policy_id        = aws_cloudfront_cache_policy.default.id
     compress               = true
-
-    forwarded_values {
-      cookies {
-        forward = "none"
-      }
-
-      query_string = false
-    }
   }
 
   custom_error_response {
@@ -64,5 +53,27 @@ resource "aws_cloudfront_distribution" "front" {
 
   tags = {
     Environment = var.app_env
+  }
+}
+
+resource "aws_cloudfront_cache_policy" "default" {
+  name        = "${var.app_name}-${var.app_env}-default"
+  min_ttl     = 0
+  default_ttl = 1800
+  max_ttl     = 86400
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
   }
 }

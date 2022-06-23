@@ -92,5 +92,5 @@ variable "ecs_instance_type" {
 }
 variable "key_pair_name" {
   default     = "anacounts_key_pair"
-  description = "Key pair to use for ssh access, NOTE: it is assumed this key pair exists, it will not be created!"
+  description = "Key pair to use for ECS launch configuration, NOTE: it is assumed this key pair exists, it will not be created!"
 }

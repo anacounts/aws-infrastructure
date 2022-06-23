@@ -5,7 +5,7 @@ locals {
 }
 
 resource "aws_acm_certificate" "cert" {
-  domain_name       = local.main_domain_name
+  domain_name       = "*.${local.main_domain_name}"
   validation_method = "DNS"
 
   tags = {
