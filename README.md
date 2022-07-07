@@ -34,14 +34,12 @@ cp -r sample_env terraform/environments/<your_env_name>
 3. Configure the `variables.tfvars` file:
   - `app_env`: set to <your_env_name>
   - `app_domain`: set to the domain you'll use for the app. You must own it !
-  - `secret_key_base_arn`: set to the arn of a secret you created in AWS Secrets Manager containing the key "SECRET_KEY_BASE". May be generated with `mix phx.gen.secret`
-  - `db_user_arn`: set to the arn of a secret you created in AWS Secrets Manager containing the key "DB_USER"
-  - `db_password_arn`: set to the arn of a secret you created in AWS Secrets Manager containing the key "DB_PASSWORD"
+  - `secrets_arn`: set to the arn of a secret you created in AWS Secrets Manager containing the "SECRET_KEY_BASE", "DB_USER" and "DB_PASSWORD" keys. SECRET_KEY_BASE may be generated with `mix phx.gen.secret`
   - `key_pair_name`: set to the name of a key pair created in the EC2 Console
   - `acm_us_east_1_cert`: in AWS Certificate Manager (ACM), `us-east-1` region, request a certificate for "*.<app_domain>". It may not validate immediately. Just let it be 😄
 4. Environment configuration is done ! You can move on to [deploying your instance](#deploy)
 
-Default cost: 0.5$ excluding VAT per month + cost of owning a domain name
+Default cost per month: (Route 53) 0.5$ + (Secrets Manager) 0.4$ + cost of owning a domain name (VAT not included)
 Default region: eu-west-3
 
 ## Deploy

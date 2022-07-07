@@ -7,14 +7,8 @@ variable "app_env" {
 variable "app_domain" {
   description = "The domain hosting the application (e.g. \"anacounts.com\")"
 }
-variable "secret_key_base_arn" {
-  description = "The Phoenix secret"
-}
-variable "db_user_arn" {
-  description = "The DB user arn, value is stored in AWS Secrets Manager"
-}
-variable "db_password_arn" {
-  description = "The DB password arn, value is stored in AWS Secrets Manager"
+variable "secrets_arn" {
+  description = "The secrets for configuring the app (SECRET_KEY_BASE, DB_USER, DB_PASSWORD)"
 }
 
 ## Defaults, can be overridden in terraform.tfvars if there is a need to
