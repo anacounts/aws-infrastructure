@@ -63,7 +63,7 @@ data "template_file" "task_definition_template" {
     ENVIRONMENT = jsonencode([
       {
         name : "SECRET_KEY_BASE",
-        value : "${local.secret_key_base}"
+        value : local.secret_key_base
       },
       {
         name : "DATABASE_URL",
@@ -71,7 +71,7 @@ data "template_file" "task_definition_template" {
       },
       {
         name : "HOST",
-        value : "15.237.105.69"
+        value : local.api_domain_name
       },
       {
         name : "FRONT_HOST",
