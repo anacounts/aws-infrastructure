@@ -32,7 +32,7 @@ resource "aws_db_instance" "db" {
   storage_encrypted     = var.rds_encrypt_at_rest
 
   # backup, snapshots, high availability
-  backup_retention_period   = 7
+  backup_retention_period   = 1
   final_snapshot_identifier = "${local.identifier}-final-snapshot"
   multi_az                  = false
 
